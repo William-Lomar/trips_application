@@ -1,0 +1,10 @@
+.env
+TODO.txt
+
+
+app/node_modules
+
+api/node_modules
+api/dist
+api/src/logs
+api/package-lock.json
