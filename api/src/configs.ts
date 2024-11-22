@@ -19,7 +19,7 @@ for (const envConfig of envConfigs) {
 }
 
 export const Configs = {
-    httpPort: 3000,
+    httpPort: 3001,
     googleApiKey: process.env.GOOGLE_API_KEY!,
     database: {
         host: process.env.POSTGRES_HOST!,
