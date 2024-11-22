@@ -14,7 +14,7 @@ export class GetRidesInputValidator implements Validator<NGetRides.IInput> {
             const input = inputSchema.parse(object);
             return input;
         } catch (error) {
-            throw new InvalidDataError(error);
+            throw new InvalidDataError();
         }
     }
 }

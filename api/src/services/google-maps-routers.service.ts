@@ -1,5 +1,5 @@
 import { IRoute, LatLng, RoutersImplements } from "../models/models";
-import { Configuracoes } from "../configuracoes";
+import { Configs } from "../configs";
 import axios from 'axios';
 import { RouteNotFoundError } from "../errors/route-not-found.error";
 import { RequestApiRouteError } from "../errors/request-api-route.error";
@@ -66,7 +66,7 @@ export class GoogleMapsRouters implements RoutersImplements {
     private url = new URL('directions/v2:computeRoutes', 'https://routes.googleapis.com')
 
     constructor() {
-        this.url.searchParams.set('key', Configuracoes.googleApiKey)
+        this.url.searchParams.set('key', Configs.googleApiKey)
         this.url.searchParams.set('fields', 'routes.legs')
     }
 

@@ -2,6 +2,8 @@ import { DriverDAO } from "../daos/driver.dao";
 import { IRidePost, RideDAO } from "../daos/ride.dao";
 import { DriverNotFoundError } from "../errors/driver-not-found.error";
 import { InvalidDistanceError } from "../errors/invalid-distance.error";
+import { InvalidDriverError } from "../errors/invalid-driver.error";
+import { NoRidesFoundError } from "../errors/no-rides-found.error";
 import { NConfirm, NEstimate, NGetRides, RoutersImplements } from "../models/models";
 import { metersToKilometers } from "../utils";
 
@@ -14,7 +16,7 @@ export class RideService {
 
     async estimate(input: NEstimate.IInput): Promise<NEstimate.IOutput> {
         const route = await this.routersService.getRoute(input.origin, input.destination);
-        const drivers = await this.driverDAO.getByMinDistance(route.distance);
+        const drivers = await this.driverDAO.getAvailableByDistance(route.distance);
 
         const distanceKlm = metersToKilometers(route.distance);
 
@@ -57,10 +59,17 @@ export class RideService {
     }
 
     async getRides(input: NGetRides.IInput): Promise<NGetRides.IOutput> {
+        if (typeof input.driver_id == 'number') {
+            const [driver] = await this.driverDAO.get({ id_driver: input.driver_id });
+            if (!driver) throw new InvalidDriverError();
+        }
+
         const rides = await this.rideDAO.get({
             customer_id: input.customer_id,
             id_driver: input.driver_id
         })
+
+        if (rides.length == 0) throw new NoRidesFoundError();
 
         return {
             customer_id: input.customer_id,

@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import { Configuracoes } from './configuracoes';
+import { Configs } from './configs';
 import { Logger } from './logger';
 import { RideController } from './controllers/ride.controller';
 import { RideService } from './services/ride.service';
@@ -18,6 +18,6 @@ new RideController(app, {
     )
 });
 
-app.listen(Configuracoes.portaHttp, () => {
-    Logger.info(`Servidor rodando na porta ${Configuracoes.portaHttp}...`);
+app.listen(Configs.httpPort, () => {
+    Logger.info(`Servidor rodando na porta ${Configs.httpPort}...`);
 })

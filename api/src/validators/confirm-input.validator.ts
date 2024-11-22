@@ -23,7 +23,7 @@ export class ConfirmInputValidator implements Validator<NConfirm.IInput> {
             if (input.origin == input.destination) throw 'Origem e destino não podem ser os mesmos';
             return input;
         } catch (error) {
-            throw new InvalidDataError(error);
+            throw new InvalidDataError();
         }
     }
 }
