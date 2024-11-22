@@ -51,7 +51,7 @@ export class RideController {
             try {
                 let getRidesInput: NGetRides.IInput = {
                     customer_id: req.params.customer_id,
-                    driver_id: req.query.driver_id as string
+                    driver_id: req.query.driver_id ? Number(req.query.driver_id) : undefined
                 }
 
                 getRidesInput = this.getRidesValidator.validate(getRidesInput);

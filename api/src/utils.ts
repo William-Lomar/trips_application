@@ -9,3 +9,7 @@ export function getString(message: any): string {
         return JSON.stringify(message, null, 2);
     }
 }
+
+export function metersToKilometers(meters: number): number {
+    return meters / 1000;
+}

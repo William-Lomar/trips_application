@@ -8,3 +8,4 @@ api/node_modules
 api/dist
 api/src/logs
 api/package-lock.json
+api/.env

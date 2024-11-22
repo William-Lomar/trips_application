@@ -1,6 +1,6 @@
 import { getString } from "../utils";
 
-export class CustomError extends Error {
+export abstract class CustomError extends Error {
     private error_description: string;
 
     constructor(error: any, private error_code: string, private _status: number) {

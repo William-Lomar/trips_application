@@ -5,7 +5,7 @@ import { InvalidDataError } from "../errors/invalid-data.error";
 
 const inputSchema = z.object({
     customer_id: z.string(),
-    driver_id: z.string().optional()
+    driver_id: z.number().optional()
 })
 
 export class GetRidesInputValidator implements Validator<NGetRides.IInput> {
