@@ -1,0 +1,45 @@
+.container-home {
+    height: 100%;
+    display: flex;
+}
+
+.side-bar {
+    height: 100%;
+    width: 30%;
+}
+
+.form {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.divider {
+    margin-top: 5px;
+    border: 1px solid #0000003b;
+}
+
+.map-container {
+    height: 100%;
+    width: 70%;
+}
+
+.btn {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.options {
+    height: calc(100% - 235px);
+    overflow: auto;
+}
+
+.options::-webkit-scrollbar {
+    display: none;
+}
+
+.progress {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
