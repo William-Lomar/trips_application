@@ -5,6 +5,6 @@ import { Logger } from "../logger";
 
 export function errorHandler(error: any, res: Response): void {
     const customError: CustomError = error instanceof CustomError ? error : new InternalServerError(error);
-    if (customError instanceof InternalServerError) Logger.error('INTERNAL_SERVER_ERROR - ' + customError.message);
+    if (customError instanceof InternalServerError) { Logger.error('INTERNAL_SERVER_ERROR - ' + customError.stack); }
     res.status(customError.status).json(customError.json());
 }

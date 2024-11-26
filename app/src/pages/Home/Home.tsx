@@ -5,12 +5,13 @@ import Confirm, { IConfirmInfo } from './Confirm/Confirm';
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { createMap, drawRoute } from '../../utils/leaflet.utils';
+import { createMap, getRouteLayers } from '../../utils/leaflet.utils';
 import { RideService } from '../../services/ride.service';
 import { NEstimate } from '../../models/models';
 import { useNavigate } from 'react-router-dom';
 import GlobalLoading from '../../shared/GlobalLoading/GlobalLoading';
 import { ErrorDialog } from '../../shared/ErrorDialog/ErrorDialog';
+import { errorHandler } from '../../utils/utils';
 
 export interface IHomeInputs {
     rideService: RideService
@@ -78,9 +79,8 @@ export default function Home({ rideService }: IHomeInputs) {
         rideService.confirm(confirmInfo).then(() => {
             navigate(`history?customer_id=${customer_id}`);
         }).catch((err) => {
-            console.error(err);
             setErrorInputs({
-                message: "Ocorreu um erro ao tentar confirmar a viagem",
+                message: errorHandler(err),
                 open: true
             })
         }).finally(() => {
@@ -106,11 +106,14 @@ export default function Home({ rideService }: IHomeInputs) {
         setLoadingOptions(true);
         rideService.estimate({ customer_id, origin, destination }).then((estimated) => {
             setEstimated(estimated);
-            drawRoute(estimated, route.current);
+            const { originLayer, destinationLayer, routeLayer } = getRouteLayers(estimated);
+            route.current.addLayer(originLayer);
+            route.current.addLayer(destinationLayer);
+            route.current.addLayer(routeLayer);
+            map.current?.fitBounds(route.current.getBounds());
         }).catch((err) => {
-            console.error(err);
             setErrorInputs({
-                message: "Ocorreu um erro ao tentar calcular a viagem",
+                message: errorHandler(err),
                 open: true
             })
         }).finally(() => setLoadingOptions(false));
@@ -166,7 +169,7 @@ export default function Home({ rideService }: IHomeInputs) {
                     : null
             }
             <GlobalLoading loading={loading} />
-            <ErrorDialog open={errorInputs.open} message={errorInputs.message} onClose={() => { setErrorInputs({ message: '', open: false }) }} />
+            <ErrorDialog open={errorInputs.open} message={errorInputs.message} onClose={() => { setErrorInputs({ open: false, message: '' }); }} />
         </div>
     )
 }

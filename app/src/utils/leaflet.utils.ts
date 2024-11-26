@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import { NEstimate } from '../models/models';
+import { decode } from '@googlemaps/polyline-codec';
 
 //TODO: Criar um seletor de tiles
 const OpenStreetMapTile = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -18,8 +19,15 @@ export function createMap(id: string): L.Map {
     return map;
 }
 
-//TODO
-export function drawRoute(estimated: NEstimate.IOutput, route: L.FeatureGroup) {
-    route.clearLayers();
-    console.log("Carmae");
+function getIconMarker(type: 'origin' | 'destination'): L.Icon {
+    return L.icon({ iconUrl: type == 'origin' ? 'map-pin-solid.png' : 'location-dot-solid.png', iconSize: [20, 26.6], iconAnchor: [10, 26.6] })
 }
+
+export function getRouteLayers(estimated: NEstimate.IOutput): { originLayer: L.Marker, destinationLayer: L.Marker, routeLayer: L.Polyline } {
+    const originLayer = L.marker({ lat: estimated.origin.latitude, lng: estimated.origin.longitude }, { icon: getIconMarker('origin') })
+    const destinationLayer = L.marker({ lat: estimated.destination.latitude, lng: estimated.destination.longitude }, { icon: getIconMarker('destination') })
+    const routeLayer = L.polyline(decode(estimated.routeResponse.routes[0].legs[0].polyline.encodedPolyline));
+
+    return { originLayer, destinationLayer, routeLayer }
+}
+
