@@ -73,7 +73,7 @@ export class GoogleMapsRouters implements RoutersImplements {
     async getRoute(origin: string, destination: string): Promise<IRoute> {
         const routeGoogleMaps = await this.requestRoute(origin, destination);
         const { routes } = routeGoogleMaps;
-        if (routes.length == 0) throw new RouteNotFoundError();
+        if (!routes || routes.length == 0) throw new RouteNotFoundError();
 
         const route = routes[0];
         const { legs } = route;

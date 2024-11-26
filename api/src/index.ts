@@ -6,8 +6,10 @@ import { RideService } from './services/ride.service';
 import { GoogleMapsRouters } from './services/google-maps-routers.service';
 import { DriverDAO } from './daos/driver.dao';
 import { RideDAO } from './daos/ride.dao';
+import cors from 'cors';
 
 const app = express();
+app.use(cors())
 app.use(json());
 
 new RideController(app, {

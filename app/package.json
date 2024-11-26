@@ -5,6 +5,9 @@
   "dependencies": {
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
+    "@fontsource/roboto": "^5.1.0",
+    "@googlemaps/polyline-codec": "^1.0.28",
+    "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.8",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -13,6 +16,8 @@
     "@types/node": "^16.18.119",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "axios": "^1.7.8",
+    "leaflet": "^1.9.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -44,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.14",
     "react-router-dom": "^7.0.1"
   }
 }
