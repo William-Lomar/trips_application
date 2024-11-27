@@ -23,9 +23,10 @@ export class RideDAO {
         const sql = database<IRideInfo>('ride').select('ride.*', 'driver.name_driver')
             .innerJoin('driver', 'driver.id_driver', 'ride.id_driver');
 
-        if (filter?.customer_id) sql.where('ride.customer_id', filter.customer_id)
-        if (typeof filter?.id_driver == 'number') sql.where('ride.id_driver', filter.id_driver)
+        if (filter?.customer_id) sql.where('ride.customer_id', filter.customer_id);
+        if (typeof filter?.id_driver == 'number') sql.where('ride.id_driver', filter.id_driver);
 
+        sql.orderBy('date_ride', 'desc');
         return sql
     }
 
