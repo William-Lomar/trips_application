@@ -8,7 +8,8 @@ const envConfigs = [
     'POSTGRES_PORT',
     'POSTGRES_USER',
     'POSTGRES_DB',
-    'POSTGRES_PASSWORD'
+    'POSTGRES_PASSWORD',
+    'HTTP_PORT'
 ]
 
 for (const envConfig of envConfigs) {
@@ -19,7 +20,7 @@ for (const envConfig of envConfigs) {
 }
 
 export const Configs = {
-    httpPort: 3001,
+    httpPort: Number(process.env.HTTP_PORT!),
     googleApiKey: process.env.GOOGLE_API_KEY!,
     database: {
         host: process.env.POSTGRES_HOST!,
