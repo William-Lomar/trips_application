@@ -1,0 +1,11 @@
+.history-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rides {
+    width: 90%;
+    margin: 0 auto;
+    height: calc(100% - 72px);
+}

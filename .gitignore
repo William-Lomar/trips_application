@@ -1,0 +1,13 @@
+.env
+TODO.txt
+.vscode
+
+app/node_modules
+app/package-lock.json
+app/build
+
+api/node_modules
+api/dist
+api/src/logs
+api/package-lock.json
+api/.env
