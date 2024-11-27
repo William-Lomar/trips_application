@@ -12,18 +12,18 @@ export class RideController {
     private getRidesValidator = new GetRidesInputValidator();
 
     constructor(
-        app: Application,
+        private app: Application,
         private services: {
             rideService: RideService
         }
     ) {
-        this.post(app);
-        this.patch(app);
-        this.get(app);
+        this.estimate();
+        this.confirm();
+        this.get();
     }
 
-    private post(app: Application) {
-        app.post('/ride/estimate', async (req, res) => {
+    private estimate() {
+        this.app.post('/ride/estimate', async (req, res) => {
             try {
                 const estimateInput = this.estimateValidator.validate(req.body);
                 const response = await this.services.rideService.estimate(estimateInput);
@@ -34,8 +34,8 @@ export class RideController {
         })
     }
 
-    private patch(app: Application) {
-        app.patch('/ride/confirm', async (req, res) => {
+    private confirm() {
+        this.app.patch('/ride/confirm', async (req, res) => {
             try {
                 const confirmInput = this.confirmValidator.validate(req.body);
                 const response = await this.services.rideService.confirm(confirmInput);
@@ -46,8 +46,8 @@ export class RideController {
         })
     }
 
-    private get(app: Application) {
-        app.get('/ride/:customer_id', async (req, res) => {
+    private get() {
+        this.app.get('/ride/:customer_id', async (req, res) => {
             try {
                 let getRidesInput: NGetRides.IInput = {
                     customer_id: req.params.customer_id,

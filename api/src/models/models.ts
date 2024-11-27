@@ -18,12 +18,10 @@ export abstract class RoutersImplements {
     abstract getRoute(origin: string, destination: string): Promise<IRoute>
 }
 
-export interface IDriver {
+export interface IDriverInfo {
     id: number,
     name: string
 }
-
-
 
 export namespace NEstimate {
     export interface IInput {
@@ -56,7 +54,7 @@ export namespace NConfirm {
         destination: string,
         distance: number,
         duration: string,
-        driver: IDriver,
+        driver: IDriverInfo,
         value: number
     }
 
@@ -73,7 +71,7 @@ export namespace NGetRides {
         destination: string,
         distance: number,
         duration: string,
-        driver: IDriver,
+        driver: IDriverInfo,
         value: number
     }
 

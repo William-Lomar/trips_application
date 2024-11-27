@@ -7,6 +7,8 @@ import { GoogleMapsRouters } from './services/google-maps-routers.service';
 import { DriverDAO } from './daos/driver.dao';
 import { RideDAO } from './daos/ride.dao';
 import cors from 'cors';
+import { DriverController } from './controllers/driver.controller';
+import { DriverService } from './services/driver.service';
 
 const app = express();
 app.use(cors())
@@ -19,6 +21,12 @@ new RideController(app, {
         new RideDAO()
     )
 });
+
+new DriverController(app, {
+    driverService: new DriverService(
+        new DriverDAO()
+    )
+})
 
 app.listen(Configs.httpPort, () => {
     Logger.info(`Servidor rodando na porta ${Configs.httpPort}...`);

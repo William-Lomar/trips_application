@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NEstimate, NConfirm, NGetRides } from "../models/models";
+import { NEstimate, NConfirm, NGetRides, IDriver } from "../models/models";
 import { Configs } from "../configs";
 
 export class RideService {
@@ -14,7 +14,18 @@ export class RideService {
     }
 
     async getRides(input: NGetRides.IInput): Promise<NGetRides.IOutput> {
-        //TODO
-        return {} as any
+        const url = new URL(`ride/${input.customer_id}`, Configs.apiHost);
+        if (typeof input.driver_id == 'number') url.searchParams.set('driver_id', input.driver_id.toString())
+        const res = await axios.get<NGetRides.IOutput>(url.href);
+
+        return {
+            customer_id: res.data.customer_id,
+            rides: res.data.rides.map((ride) => {
+                return {
+                    ...ride,
+                    date: new Date(ride.date)
+                }
+            })
+        };
     }
 }
